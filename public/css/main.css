@@ -1,0 +1,27 @@
+header .nav-link.active {
+	background-color: #52cc00 !important;
+	color: white !important;
+}
+header .nav-link {
+	color:black;
+}
+header .nav-link:hover {
+	color:grey;
+}
+.categories .nav-link.active {
+	background-color: #52cc00 !important;
+	color: white !important;
+}
+.categories .nav-link {
+	color:black;
+}
+.categories .nav-link:hover {
+	color:grey;
+}
+footer {
+	background-color: #DDD;
+	color: black;
+}
+.smile {
+    width: 1.6em;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100">
+	<head>
+		{{> head}}
+	</head>
+	<body class="d-flex flex-column h-100">
+
+		{{> header}}
+
+		<div class="container-fluid">
+			<div class="row">
+				{{#if categoriesVisible}}
+					{{> categories}}
+				{{/if}}
+				{{{body}}}
+			</div>
+		</div>
+		{{> footer-n-scripts}}
+	</body>
+</html>
