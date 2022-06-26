@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "cheeseusauceu";
+  font-style: normal;
+  font-display: swap;
+  /* Браузер сначала попробует найти шрифт локально */
+  src: local("cheeseusauceu"),
+  		/* Если не получилось, загрузит woff2 */
+       url("/fonts/cheeseusauceu.woff2") format("woff2"),
+       /* Если браузер не поддерживает woff2, загрузит woff */
+       url("/fonts/cheeseusauceu.woff") format("woff"),
+       /* Если не получилось, загрузит ttf */
+       url("/fonts/cheeseusauceu.ttf") format("truetype");
+  /*unicode-range: U+004D, U+0059, U+002D, U+0050, U+0052, U+004F, U+0047, U+0045, U+0053, U+002E, U+0055;*/
+}
 header .nav-link.active {
 	background-color: #52cc00 !important;
 	color: white !important;
@@ -24,4 +38,28 @@ footer {
 }
 .smile {
     width: 1.6em;
+}
+.main-title {
+	font-family: "cheeseusauceu", Impact, Charcoal, sans-serif;
+	font-size: 1.6em;
+	font-weight: bold;
+	color: MediumSeaGreen;
+}
+#logo {
+	background-image: repeating-linear-gradient(
+		90deg,
+        MediumSeaGreen 20%,
+        #00FA00 40%);
+	width: 100%;
+    background-size: 200% auto;
+    background-position: 0 100%;
+    animation: gradient 7.5s infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    -webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+@keyframes gradient { 
+  0%   { background-position: 0 0; }
+  100% { background-position: -200% 0; }
 }
