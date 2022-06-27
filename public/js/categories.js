@@ -7,8 +7,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var categories = {
-	"Статьи": ["Новинки", "Тренды", "Коллаборации"],
-	"Одежда": ["Б/У", "Российское", "ХендМейд", "Обувь", "Верх", "Низ", "Головные уборы"]
+	"Хобби": ["Научные", "Творческие", "Активные", "Остальное"],
+	"Изменение жизни": ["Отказ от вредного", "Полезные привычки", "Движение к цели", "Карьера", "Остальное"]
 };
 
 var CategoriesBar = function (_React$Component) {
@@ -25,22 +25,41 @@ var CategoriesBar = function (_React$Component) {
 		for (var i = 0; i < Object.keys(categories).length; i++) {
 			active.push(false);
 		}
-		_this.state = { isActive: active };
+		_this.state = { isActive: active, isReset: true };
 		_this.output = _this.output.bind(_this);
+		_this.reset = _this.reset.bind(_this);
 		return _this;
 	}
 
 	_createClass(CategoriesBar, [{
+		key: "reset",
+		value: function reset() {
+			var active = [];
+			for (var i = 0; i < Object.keys(categories).length; i++) {
+				active.push(false);
+			}
+			this.setState({ isActive: active, isReset: true });
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var rows = [];
 			for (var i = 0; i < Object.keys(categories).length; i++) {
 				rows.push(React.createElement(Category, { isActive: this.state.isActive[i], name: Object.keys(categories)[i], links: categories[Object.keys(categories)[i]], func: this.output }));
 			}
+			var classLink = "dropdown-item";
+			if (this.state.isReset) {
+				classLink += " active";
+			}
 			return React.createElement(
 				"div",
 				{ className: "dropdown" },
-				rows
+				rows,
+				React.createElement(
+					"button",
+					{ className: classLink, onClick: this.reset },
+					"\u0411\u0435\u0437 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0439"
+				)
 			);
 		}
 	}]);
@@ -57,7 +76,7 @@ var _initialiseProps = function _initialiseProps() {
 			active.push(false);
 		}
 		active[num] = !_this4.state.isActive[num];
-		_this4.setState({ isActive: active });
+		_this4.setState({ isActive: active, isReset: false });
 	};
 };
 
@@ -75,6 +94,7 @@ var Category = function (_React$Component2) {
 		for (var i = 0; i < categories[_this2.props.name].length; i++) {
 			active.push(false);
 		}
+		active[0] = true;
 		_this2.state = { isActive: active };
 		_this2.handleClick = _this2.handleClick.bind(_this2);
 		_this2.output = _this2.output.bind(_this2);

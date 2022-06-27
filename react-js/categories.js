@@ -1,9 +1,9 @@
 var categories = {
-	"Статьи": [
-		"Новинки","Тренды","Коллаборации"
+	"Хобби": [
+		"Научные","Творческие","Активные","Остальное"
 	],
-	"Одежда": [
-		"Б/У","Российское","ХендМейд","Обувь","Верх","Низ", "Головные уборы"
+	"Изменение жизни": [
+		"Отказ от вредного","Полезные привычки","Движение к цели","Карьера","Остальное"
 	]
 };
 
@@ -14,8 +14,9 @@ class CategoriesBar extends React.Component {
 	    for (var i = 0; i < Object.keys(categories).length; i++) {
 	      active.push(false);
 	    }
-	    this.state = {isActive: active};
+	    this.state = {isActive: active, isReset: true};
 		this.output = this.output.bind(this);
+		this.reset = this.reset.bind(this);
 	}
 
 	output = num => {
@@ -24,7 +25,15 @@ class CategoriesBar extends React.Component {
 	      active.push(false);
 	    }
 	    active[num] = !this.state.isActive[num];
-	    this.setState({ isActive : active});
+	    this.setState({ isActive : active, isReset: false});
+	}
+
+	reset() {
+		var active = [];
+	    for (var i = 0; i < Object.keys(categories).length; i++) {
+	      active.push(false);
+	    }
+	    this.setState({isActive : active, isReset: true});
 	}
 
 	render() {
@@ -32,9 +41,14 @@ class CategoriesBar extends React.Component {
 	    for (var i = 0; i < Object.keys(categories).length; i++) {
 	      rows.push(<Category isActive={this.state.isActive[i]} name={Object.keys(categories)[i]} links={categories[Object.keys(categories)[i]]} func={this.output}/>);
 	    }
+	    var classLink = "dropdown-item";
+		if (this.state.isReset) {
+			classLink += " active";
+		}
 		return (
 			<div className="dropdown">
 			  {rows}
+			  <button className={classLink} onClick={this.reset}>Без категорий</button>
 			</div>
 		);
 	}
@@ -47,6 +61,7 @@ class Category extends React.Component {
 	    for (var i = 0; i < categories[this.props.name].length; i++) {
 	      active.push(false);
 	    }
+	    active[0] = true;
 	    this.state = {isActive: active};
 		this.handleClick = this.handleClick.bind(this);
 		this.output = this.output.bind(this);
