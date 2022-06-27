@@ -12,20 +12,16 @@ app.engine('hbs', expressHbs.engine(
 		extname: 'hbs',
 		helpers: {
 	        style(page) {
-	            if (page === "logreg") {
-			    	return new hbs.SafeString('<link href="/css/logreg.css" rel="stylesheet">');
-			    }
-			    else {
-			    	return new hbs.SafeString('');
-			    }
+			    return new hbs.SafeString('<link href="/css/' + page + '.css" rel="stylesheet">');
 	        },
 	        script(page) {
-	            if (page === "logreg") {
-			    	return new hbs.SafeString('<script src="/js/logreg.js"></script>');
-			    }
-			    else {
-			    	return new hbs.SafeString('');
-			    }
+			    return new hbs.SafeString('<script src="/js/' + page + '.js"></script>');
+	        },
+	        categoriesScript(categories) {
+	        	return categories ? new hbs.SafeString('<script src="/js/categories.js"></script>') : null;
+	        },
+	        categoriesStyle(categories) {
+	        	return categories ? new hbs.SafeString('<link href="/css/categories.css" rel="stylesheet">') : null;
 	        }
 	    }
 	}
@@ -34,14 +30,14 @@ app.set('view engine', 'hbs');
 
 app.get("/", function(request, response) {
     response.render("index", {
-        categoriesVisible: true,
+        categories: true,
         page: "index"
     });
 });
 
 app.get("/logreg", function(request, response) {
 	response.render("logreg", {
-        categoriesVisible: false,
+        categories: false,
         page: "logreg"
     });
 });
@@ -53,7 +49,7 @@ app.post("/ok", urlencodedParser, function(request, response, next) {
 
 app.use("/profile", function(request, response) {
 	response.render("profile", {
-        categoriesVisible: false,
+        categories: false,
         page: "profile"
     });
 });

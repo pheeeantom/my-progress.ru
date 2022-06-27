@@ -1,0 +1,27 @@
+.dropdown-toggle:focus {
+	box-shadow: none !important;
+}
+.dropdown-item.active {
+	background-color: MediumSeaGreen;
+}
+.dropdown-item.active:hover {
+	background-color: #4cc381;
+}
+.dropdown-item:active {
+	background: none;
+	color: black;
+}
+@media (max-width: 1200px) {
+	#categories {
+		text-align: center !important;
+	}
+}
+@media (max-width: 768px) {
+	#categories {
+		font-size: 1.1em;
+		text-align: center;
+	}
+	.dropdown-item {
+		margin-bottom: 10px;
+	}
+}
