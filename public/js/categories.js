@@ -6,6 +6,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/*
+ *
+ *  Когда я буду брать из бд - хобби и изменение жизни нужно будет засунуть в квадратные скобки
+ *  и засунуть туда переменную из бд.
+ *
+ *  bind() используется потому что при использовании колбэков контекст теряется и он связывает
+ *  вызывающий объект с this. Без bind() получаетсяlet hi = this.output; output(); без контекста
+ *  
+*/
+
 var categories = {
 	"Хобби": ["Научные", "Творческие", "Активные", "Остальное"],
 	"Изменение жизни": ["Отказ от вредного", "Полезные привычки", "Движение к цели", "Карьера", "Остальное"]
@@ -22,6 +32,7 @@ var CategoriesBar = function (_React$Component) {
 		_initialiseProps.call(_this);
 
 		var active = [];
+		//active.fill
 		for (var i = 0; i < Object.keys(categories).length; i++) {
 			active.push(false);
 		}
@@ -35,6 +46,7 @@ var CategoriesBar = function (_React$Component) {
 		key: "reset",
 		value: function reset() {
 			var active = [];
+			//active.fill
 			for (var i = 0; i < Object.keys(categories).length; i++) {
 				active.push(false);
 			}
@@ -72,6 +84,7 @@ var _initialiseProps = function _initialiseProps() {
 
 	this.output = function (num) {
 		var active = [];
+		//active.fill
 		for (var i = 0; i < Object.keys(categories).length; i++) {
 			active.push(false);
 		}
@@ -91,6 +104,7 @@ var Category = function (_React$Component2) {
 		_initialiseProps2.call(_this2);
 
 		var active = [];
+		//active.fill
 		for (var i = 0; i < categories[_this2.props.name].length; i++) {
 			active.push(false);
 		}
@@ -152,6 +166,7 @@ var _initialiseProps2 = function _initialiseProps2() {
 
 	this.output = function (num) {
 		var active = [];
+		//active.fill
 		for (var i = 0; i < categories[_this5.props.name].length; i++) {
 			active.push(false);
 		}

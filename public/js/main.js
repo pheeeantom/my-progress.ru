@@ -19,6 +19,7 @@ var NavBar = function (_React$Component) {
     _initialiseProps.call(_this);
 
     var active = [true];
+    //active.fill
     for (var i = 1; i < links.length; i++) {
       active.push(false);
     }
@@ -51,6 +52,7 @@ var _initialiseProps = function _initialiseProps() {
 
   this.output = function (num) {
     var active = [];
+    //active.fill
     for (var i = 0; i < links.length; i++) {
       active.push(false);
     }

@@ -8,6 +8,7 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     var active = [true];
+    //active.fill
     for (var i = 1; i < links.length; i++) {
       active.push(false);
     }
@@ -17,6 +18,7 @@ class NavBar extends React.Component {
 
   output = num => {
     var active = [];
+    //active.fill
     for (var i = 0; i < links.length; i++) {
       active.push(false);
     }

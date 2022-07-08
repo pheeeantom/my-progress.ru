@@ -1,3 +1,13 @@
+/*
+ *
+ *  Когда я буду брать из бд - хобби и изменение жизни нужно будет засунуть в квадратные скобки
+ *  и засунуть туда переменную из бд.
+ *
+ *  bind() используется потому что при использовании колбэков контекст теряется и он связывает
+ *  вызывающий объект с this. Без bind() получаетсяlet hi = this.output; output(); без контекста
+ *  
+*/
+
 var categories = {
 	"Хобби": [
 		"Научные","Творческие","Активные","Остальное"
@@ -11,6 +21,7 @@ class CategoriesBar extends React.Component {
 	constructor(props) {
 		super(props);
 		var active = [];
+		//active.fill
 	    for (var i = 0; i < Object.keys(categories).length; i++) {
 	      active.push(false);
 	    }
@@ -21,6 +32,7 @@ class CategoriesBar extends React.Component {
 
 	output = num => {
 	    var active = [];
+	    //active.fill
 	    for (var i = 0; i < Object.keys(categories).length; i++) {
 	      active.push(false);
 	    }
@@ -30,6 +42,7 @@ class CategoriesBar extends React.Component {
 
 	reset() {
 		var active = [];
+		//active.fill
 	    for (var i = 0; i < Object.keys(categories).length; i++) {
 	      active.push(false);
 	    }
@@ -58,6 +71,7 @@ class Category extends React.Component {
 	constructor(props) {
 		super(props);
 		var active = [];
+		//active.fill
 	    for (var i = 0; i < categories[this.props.name].length; i++) {
 	      active.push(false);
 	    }
@@ -82,6 +96,7 @@ class Category extends React.Component {
 
   	output = num => {
 	    var active = [];
+	    //active.fill
 	    for (var i = 0; i < categories[this.props.name].length; i++) {
 	      active.push(false);
 	    }
