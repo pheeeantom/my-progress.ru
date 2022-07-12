@@ -55,11 +55,11 @@
 @media (max-width: 350px) {
 	.dropdown-item {
 		margin: auto;
-		width: 80vw !important;
+		width: 65vw !important;
 	}
 	.categories {
 		margin: auto;
-		width: 95vw !important;
+		width: 100vw !important;
 	}
 }
 @media (min-width: 350px) and (max-width: 600px) {
@@ -69,6 +69,6 @@
 	}
 	.categories {
 		margin: auto;
-		width: 65vw !important;
+		width: 75vw !important;
 	}
 }
