@@ -100,6 +100,9 @@ body {
 		margin: auto;
 		padding-bottom: 15px;
 	}
+	#logo {
+	    animation: none !important;
+	}
 }
 @media (max-width: 350px) {
 	.nav-link {
@@ -124,5 +127,8 @@ body {
 	}
 	#break-logo {
 		display: inline;
+	}
+	#logo {
+	    animation: none !important;
 	}
 }
