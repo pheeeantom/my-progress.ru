@@ -87,6 +87,9 @@ body {
 		font-size: 1.1em;
 		margin: auto;
 	}
+	.main-title {
+		font-size: 26px;
+	}
 	/*header {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
@@ -108,14 +111,15 @@ body {
 	.nav-link {
 		width: 80vw !important;
 	}
-	#logo {
-	    animation: none !important;
-	}
 	#vertical-logo {
 		display: none;
 	}
 	#break-logo {
 		display: inline;
+	}
+	.main-title {
+		padding-bottom: 20px;
+		font-size: 28px;
 	}
 }
 @media (min-width: 350px) and (max-width: 600px) {
@@ -128,7 +132,8 @@ body {
 	#break-logo {
 		display: inline;
 	}
-	#logo {
-	    animation: none !important;
+	.main-title {
+		padding-bottom: 20px;
+		font-size: 28px;
 	}
 }
