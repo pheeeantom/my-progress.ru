@@ -1,15 +1,15 @@
 @font-face {
-  font-family: "cheeseusauceu";
+  font-family: "Acme-Regular";
   font-style: normal;
   font-display: swap;
   /* Браузер сначала попробует найти шрифт локально */
-  src: local("cheeseusauceu"),
+  src: local("Acme-Regular"),
   		/* Если не получилось, загрузит woff2 */
-       url("/fonts/cheeseusauceu.woff2") format("woff2"),
+       url("/fonts/Acme-Regular.woff2") format("woff2"),
        /* Если браузер не поддерживает woff2, загрузит woff */
-       url("/fonts/cheeseusauceu.woff") format("woff"),
+       url("/fonts/Acme-Regular.woff") format("woff"),
        /* Если не получилось, загрузит ttf */
-       url("/fonts/cheeseusauceu.ttf") format("truetype");
+       url("/fonts/Acme-Regular.ttf") format("truetype");
   /*unicode-range: U+004D, U+0059, U+002D, U+0050, U+0052, U+004F, U+0047, U+0045, U+0053, U+002E, U+0055;*/
 }
 header .nav-link.active {
@@ -29,11 +29,14 @@ footer {
 	background-color: #DDD;
 	color: black;
 }
+body {
+	background-color: #fafafa;
+}
 /*.smile {
     width: 1.6em;
 }*/
 .main-title {
-	font-family: "cheeseusauceu", Impact, Charcoal, sans-serif;
+	font-family: "Acme-Regular", "Comic Sans MS", "Comic Sans", cursive;
 	font-size: 1.6em;
 	font-weight: bold;
 	color: MediumSeaGreen;
@@ -43,7 +46,7 @@ footer {
 	background-image: repeating-linear-gradient(
 		90deg,
         MediumSeaGreen 20%,
-        #00FA00 40%);
+        #7cf3b1 40%);
 	width: 100%;
     background-size: 200% auto;
     background-position: 0 100%;
@@ -66,6 +69,12 @@ footer {
 }
 #logreg:hover {
 	background-color: #2c9351;
+}
+#break-logo {
+	display: none;
+}
+#vertical-logo {
+	display: inline;
 }
 @media (max-width: 768px) {
 	#nav {
@@ -96,9 +105,24 @@ footer {
 	.nav-link {
 		width: 80vw !important;
 	}
+	#logo {
+	    animation: none !important;
+	}
+	#vertical-logo {
+		display: none;
+	}
+	#break-logo {
+		display: inline;
+	}
 }
 @media (min-width: 350px) and (max-width: 600px) {
 	.nav-link {
 		width: 50vw !important;
+	}
+	#vertical-logo {
+		display: none;
+	}
+	#break-logo {
+		display: inline;
 	}
 }

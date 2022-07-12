@@ -29,7 +29,7 @@ class NavBar extends React.Component {
   render() {
     var rows = [];
     for (var i = 0; i < links.length; i++) {
-      rows.push(<Nav isActive={this.state.isActive[i]} name={links[i]} func={this.output}/>);
+      rows.push(<Nav key={i.toString()} isActive={this.state.isActive[i]} name={links[i]} func={this.output}/>);
     }
     return (
       <span>

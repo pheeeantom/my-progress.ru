@@ -33,7 +33,7 @@ var NavBar = function (_React$Component) {
     value: function render() {
       var rows = [];
       for (var i = 0; i < links.length; i++) {
-        rows.push(React.createElement(Nav, { isActive: this.state.isActive[i], name: links[i], func: this.output }));
+        rows.push(React.createElement(Nav, { key: i.toString(), isActive: this.state.isActive[i], name: links[i], func: this.output }));
       }
       return React.createElement(
         "span",

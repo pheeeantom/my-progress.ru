@@ -57,7 +57,7 @@ var CategoriesBar = function (_React$Component) {
 		value: function render() {
 			var rows = [];
 			for (var i = 0; i < Object.keys(categories).length; i++) {
-				rows.push(React.createElement(Category, { isActive: this.state.isActive[i], name: Object.keys(categories)[i], links: categories[Object.keys(categories)[i]], func: this.output }));
+				rows.push(React.createElement(Category, { key: i.toString(), isActive: this.state.isActive[i], name: Object.keys(categories)[i], links: categories[Object.keys(categories)[i]], func: this.output }));
 			}
 			var classLink = "dropdown-item";
 			if (this.state.isReset) {
@@ -69,7 +69,7 @@ var CategoriesBar = function (_React$Component) {
 				rows,
 				React.createElement(
 					"button",
-					{ className: classLink, onClick: this.reset },
+					{ className: classLink, id: "without", onClick: this.reset },
 					"\u0411\u0435\u0437 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0439"
 				)
 			);
@@ -89,7 +89,10 @@ var _initialiseProps = function _initialiseProps() {
 			active.push(false);
 		}
 		active[num] = !_this4.state.isActive[num];
-		_this4.setState({ isActive: active, isReset: false });
+		if (active[num] == false) {
+			var reset = true;
+		}
+		_this4.setState({ isActive: active, isReset: reset });
 	};
 };
 
@@ -139,16 +142,21 @@ var Category = function (_React$Component2) {
 			}
 			var rows = [];
 			for (var i = 0; i < this.props.links.length; i++) {
-				rows.push(React.createElement(Link, { isActive: this.state.isActive[i], name: this.props.links[i], num: i, func: this.output }));
+				rows.push(React.createElement(Link, { key: i.toString(), isActive: this.state.isActive[i], name: this.props.links[i], num: i, func: this.output }));
+			}
+			var classLink = "dropdown-set";
+			if (this.props.isActive) {
+				classLink += " active";
 			}
 			return React.createElement(
 				"div",
-				null,
+				{ className: classLink },
 				React.createElement(
 					"button",
 					{ onClick: this.handleClick, className: "btn dropdown-toggle", type: "button", id: "dropdownMenuButton", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": this.props.isActive },
 					this.props.name
 				),
+				React.createElement("hr", { style: { display: display, marginBottom: 10, marginTop: 0 } }),
 				React.createElement(
 					"div",
 					{ style: { display: display }, className: "px-2" },

@@ -37,7 +37,10 @@ class CategoriesBar extends React.Component {
 	      active.push(false);
 	    }
 	    active[num] = !this.state.isActive[num];
-	    this.setState({ isActive : active, isReset: false});
+	    if (active[num] == false) {
+	    	var reset = true;
+	    }
+	    this.setState({ isActive : active, isReset: reset});
 	}
 
 	reset() {
@@ -52,7 +55,7 @@ class CategoriesBar extends React.Component {
 	render() {
 		var rows = [];
 	    for (var i = 0; i < Object.keys(categories).length; i++) {
-	      rows.push(<Category isActive={this.state.isActive[i]} name={Object.keys(categories)[i]} links={categories[Object.keys(categories)[i]]} func={this.output}/>);
+	      rows.push(<Category key={i.toString()} isActive={this.state.isActive[i]} name={Object.keys(categories)[i]} links={categories[Object.keys(categories)[i]]} func={this.output}/>);
 	    }
 	    var classLink = "dropdown-item";
 		if (this.state.isReset) {
@@ -61,7 +64,7 @@ class CategoriesBar extends React.Component {
 		return (
 			<div className="dropdown">
 			  {rows}
-			  <button className={classLink} onClick={this.reset}>Без категорий</button>
+			  <button className={classLink} id="without" onClick={this.reset}>Без категорий</button>
 			</div>
 		);
 	}
@@ -111,13 +114,18 @@ class Category extends React.Component {
 		}
 		var rows = [];
 	    for (var i = 0; i < this.props.links.length; i++) {
-	      rows.push(<Link isActive={this.state.isActive[i]} name={this.props.links[i]} num={i} func={this.output}/>);
+	      rows.push(<Link key={i.toString()} isActive={this.state.isActive[i]} name={this.props.links[i]} num={i} func={this.output}/>);
+	    }
+	    var classLink = "dropdown-set";
+	    if (this.props.isActive) {
+	    	classLink += " active";
 	    }
 		return (
-			<div>
+			<div className={classLink}>
 				<button onClick={this.handleClick} className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded={this.props.isActive}>
 				  {this.props.name}
 				</button>
+				<hr style={{display: display, marginBottom: 10, marginTop: 0}}></hr>
 				<div style={{display: display}} className="px-2">
 				  {rows}
 				</div>
