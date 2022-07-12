@@ -38,6 +38,9 @@
 		margin: auto !important;
 		width: 55vw !important;
 	}
+	#without {
+		margin: 0 !important;
+	}
 }
 @media (max-width: 768px) {
 	.categories {
@@ -51,6 +54,9 @@
 		margin: auto !important;
 		width: 55vw !important;
 	}
+	#without {
+		margin: auto !important;
+	}
 }
 @media (max-width: 350px) {
 	.dropdown-item {
@@ -61,6 +67,9 @@
 		margin: auto;
 		width: 100vw !important;
 	}
+	#without {
+		margin: auto !important;
+	}
 }
 @media (min-width: 350px) and (max-width: 600px) {
 	.dropdown-item {
@@ -70,5 +79,8 @@
 	.categories {
 		margin: auto;
 		width: 75vw !important;
+	}
+	#without {
+		margin: auto !important;
 	}
 }
