@@ -32,7 +32,7 @@
 @media (max-width: 1200px) {
 	.categories {
 		margin: auto !important;
-		width: 60vw !important;
+		width: 65vw !important;
 	}
 	.dropdown-item {
 		margin: auto !important;
@@ -43,9 +43,13 @@
 	.categories {
 		font-size: 1.1em;
 		text-align: center;
+		margin: auto !important;
+		width: 65vw !important;
 	}
 	.dropdown-item {
 		margin-bottom: 10px;
+		margin: auto !important;
+		width: 55vw !important;
 	}
 }
 @media (max-width: 350px) {
