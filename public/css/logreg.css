@@ -1,24 +1,39 @@
+/* line 1, ../../../Documents/my-progress.ru/sass/logreg.scss */
 .btn[type=submit] {
-    background-color: #52cc00;
-    color: white;
+  background-color: #52cc00;
+  color: white;
 }
+
+/* line 5, ../../../Documents/my-progress.ru/sass/logreg.scss */
 .btn[type=submit]:hover {
-    background-color: #62dc00;
+  background-color: #62dc00;
 }
+
+/* line 8, ../../../Documents/my-progress.ru/sass/logreg.scss */
 label.checked {
-    border: 3px solid #52cc00;
-    border-radius: 7px;
+  border: 3px solid #52cc00;
+  border-radius: 7px;
 }
+
+/* line 12, ../../../Documents/my-progress.ru/sass/logreg.scss */
 #pass-log-open, #pass-log-close, #pass-reg-open, #pass-reg-close, #pass-reg-sec-open, #pass-reg-sec-close {
-    margin-left: 2%;
-    width: 1.7em;
+  margin-left: 2%;
+  width: 1.7em;
 }
+
+/* line 16, ../../../Documents/my-progress.ru/sass/logreg.scss */
 #pass-log-open:hover, #pass-log-close:hover, #pass-reg-open:hover, #pass-reg-close:hover, #pass-reg-sec-open:hover, #pass-reg-sec-close:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
+
+/* line 19, ../../../Documents/my-progress.ru/sass/logreg.scss */
 input:focus {
-    box-shadow: 0 0 4px 2px rgba(82, 204, 0, 0.6) !important;
+  box-shadow: 0 0 4px 2px rgba(82, 204, 0, 0.6) !important;
 }
+
+/* line 22, ../../../Documents/my-progress.ru/sass/logreg.scss */
 input[readonly] {
-	background-color: white !important;
+  background-color: white !important;
 }
+
+/*# sourceMappingURL=logreg.css.map */

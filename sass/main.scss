@@ -1,0 +1,142 @@
+@import "lib/_colors";
+@import "lib/_fonts";
+
+@font-face {
+	font: {
+		family: "Acme-Regular";
+		style: normal;
+		display: swap;
+	}
+	/* Браузер сначала попробует найти шрифт локально */
+	src: local("Acme-Regular"),
+			/* Если не получилось, загрузит woff2 */
+	   url("/fonts/Acme-Regular.woff2") format("woff2"),
+	   /* Если браузер не поддерживает woff2, загрузит woff */
+	   url("/fonts/Acme-Regular.woff") format("woff"),
+	   /* Если не получилось, загрузит ttf */
+	   url("/fonts/Acme-Regular.ttf") format("truetype");
+	/*unicode-range: U+004D, U+0059, U+002D, U+0050, U+0052, U+004F, U+0047, U+0045, U+0053, U+002E, U+0055;*/
+}
+header {
+	.nav-link.active {
+		background-color: $main-inactive !important;
+		color: white !important;
+		&:hover {
+			background-color: $main-active !important;
+		}
+	}
+	.nav-link {
+		color:black;
+		&:hover {
+			color:grey;
+		}
+	}
+}
+footer {
+	background-color: $footer-color;
+	color: black;
+}
+body {
+	background-color: $bg;
+}
+/*.smile {
+    width: 1.6em;
+}*/
+.main-title {
+	font: {
+		family: "Acme-Regular", "Comic Sans MS", "Comic Sans", cursive;
+		size: 1.6em;
+		weight: bold;
+	}
+	color: $main-inactive;
+	text-align: center;
+}
+#logo {
+	background: {
+		image: repeating-linear-gradient(
+			90deg,
+	        $main-inactive 20%,
+	        $logo-wave 40%);
+        size: 200% auto;
+    	position: 0 100%;
+	}
+	width: 100%;
+    animation: gradient 7.5s infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    -webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+@keyframes gradient { 
+  0%   { background-position: 0 0; }
+  100% { background-position: -200% 0; }
+}
+#nav {
+	text-align: right;
+}
+#logreg {
+	background-color: $logreg-inactive;
+	color: white !important;
+	&:hover {
+		background-color: $logreg-active;
+	}
+}
+#break-logo {
+	display: none;
+}
+#vertical-logo {
+	display: inline;
+}
+@media (max-width: 1200px) {
+	#nav {
+		display: block !important;
+	}
+	header {
+		a {
+			margin: auto;
+			padding-bottom: 15px;
+		}
+	}
+	#logo {
+	    animation: none !important;
+	}
+}
+@media (max-width: 768px) {
+	#nav {
+		text-align: center;
+	}
+	.nav-item {
+		margin-bottom: 10px;
+	}
+	.nav-link {
+		font-size: 1.1em;
+		margin: auto;
+	}
+	.main-title {
+		font-size: $title-medium;
+	}
+	/*header {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}*/
+}
+@media (max-width: 600px) {
+	.nav-link {
+		width: 50vw !important;
+	}
+	#vertical-logo {
+		display: none;
+	}
+	#break-logo {
+		display: inline;
+	}
+	.main-title {
+		padding-bottom: 20px;
+		font-size: $title-large;
+	}
+}
+@media (max-width: 350px) {
+	.nav-link {
+		width: 80vw !important;
+	}
+}

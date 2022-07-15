@@ -1,139 +1,170 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Acme-Regular";
   font-style: normal;
   font-display: swap;
   /* Браузер сначала попробует найти шрифт локально */
-  src: local("Acme-Regular"),
-  		/* Если не получилось, загрузит woff2 */
-       url("/fonts/Acme-Regular.woff2") format("woff2"),
-       /* Если браузер не поддерживает woff2, загрузит woff */
-       url("/fonts/Acme-Regular.woff") format("woff"),
-       /* Если не получилось, загрузит ttf */
-       url("/fonts/Acme-Regular.ttf") format("truetype");
+  src: local("Acme-Regular"), url("/fonts/Acme-Regular.woff2") format("woff2"), url("/fonts/Acme-Regular.woff") format("woff"), url("/fonts/Acme-Regular.ttf") format("truetype");
   /*unicode-range: U+004D, U+0059, U+002D, U+0050, U+0052, U+004F, U+0047, U+0045, U+0053, U+002E, U+0055;*/
 }
+
+/* line 21, ../../../Documents/my-progress.ru/sass/main.scss */
 header .nav-link.active {
-	background-color: MediumSeaGreen !important;
-	color: white !important;
+  background-color: MediumSeaGreen !important;
+  color: white !important;
 }
+
+/* line 24, ../../../Documents/my-progress.ru/sass/main.scss */
 header .nav-link.active:hover {
-	background-color: #4cc381 !important;
+  background-color: #4cc381 !important;
 }
+
+/* line 28, ../../../Documents/my-progress.ru/sass/main.scss */
 header .nav-link {
-	color:black;
+  color: black;
 }
+
+/* line 30, ../../../Documents/my-progress.ru/sass/main.scss */
 header .nav-link:hover {
-	color:grey;
+  color: grey;
 }
+
+/* line 35, ../../../Documents/my-progress.ru/sass/main.scss */
 footer {
-	background-color: #DDD;
-	color: black;
+  background-color: #DDD;
+  color: black;
 }
+
+/* line 39, ../../../Documents/my-progress.ru/sass/main.scss */
 body {
-	background-color: #fafafa;
+  background-color: #fafafa;
 }
+
 /*.smile {
     width: 1.6em;
 }*/
+/* line 45, ../../../Documents/my-progress.ru/sass/main.scss */
 .main-title {
-	font-family: "Acme-Regular", "Comic Sans MS", "Comic Sans", cursive;
-	font-size: 1.6em;
-	font-weight: bold;
-	color: MediumSeaGreen;
-	text-align: center;
+  font-family: "Acme-Regular", "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: MediumSeaGreen;
+  text-align: center;
 }
+
+/* line 54, ../../../Documents/my-progress.ru/sass/main.scss */
 #logo {
-	background-image: repeating-linear-gradient(
-		90deg,
-        MediumSeaGreen 20%,
-        #7cf3b1 40%);
-	width: 100%;
-    background-size: 200% auto;
-    background-position: 0 100%;
-    animation: gradient 7.5s infinite;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
-    -webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
+  background-image: repeating-linear-gradient(90deg, MediumSeaGreen 20%, #94dbb4 40%);
+  background-size: 200% auto;
+  background-position: 0 100%;
+  width: 100%;
+  animation: gradient 7.5s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-@keyframes gradient { 
-  0%   { background-position: 0 0; }
-  100% { background-position: -200% 0; }
+
+@keyframes gradient {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
+
+/* line 74, ../../../Documents/my-progress.ru/sass/main.scss */
 #nav {
-	text-align: right;
+  text-align: right;
 }
+
+/* line 77, ../../../Documents/my-progress.ru/sass/main.scss */
 #logreg {
-	background-color: #1c8341;
-	color: white !important;
+  background-color: #1c8341;
+  color: white !important;
 }
+
+/* line 80, ../../../Documents/my-progress.ru/sass/main.scss */
 #logreg:hover {
-	background-color: #2c9351;
+  background-color: #229d4e;
 }
+
+/* line 84, ../../../Documents/my-progress.ru/sass/main.scss */
 #break-logo {
-	display: none;
+  display: none;
 }
+
+/* line 87, ../../../Documents/my-progress.ru/sass/main.scss */
 #vertical-logo {
-	display: inline;
+  display: inline;
 }
+
+@media (max-width: 1200px) {
+  /* line 91, ../../../Documents/my-progress.ru/sass/main.scss */
+  #nav {
+    display: block !important;
+  }
+  /* line 95, ../../../Documents/my-progress.ru/sass/main.scss */
+  header a {
+    margin: auto;
+    padding-bottom: 15px;
+  }
+  /* line 100, ../../../Documents/my-progress.ru/sass/main.scss */
+  #logo {
+    animation: none !important;
+  }
+}
+
 @media (max-width: 768px) {
-	#nav {
-		text-align: center;
-	}
-	.nav-item {
-		margin-bottom: 10px;
-	}
-	.nav-link {
-		font-size: 1.1em;
-		margin: auto;
-	}
-	.main-title {
-		font-size: 26px;
-	}
-	/*header {
+  /* line 105, ../../../Documents/my-progress.ru/sass/main.scss */
+  #nav {
+    text-align: center;
+  }
+  /* line 108, ../../../Documents/my-progress.ru/sass/main.scss */
+  .nav-item {
+    margin-bottom: 10px;
+  }
+  /* line 111, ../../../Documents/my-progress.ru/sass/main.scss */
+  .nav-link {
+    font-size: 1.1em;
+    margin: auto;
+  }
+  /* line 115, ../../../Documents/my-progress.ru/sass/main.scss */
+  .main-title {
+    font-size: 26px;
+  }
+  /*header {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}*/
 }
-@media (max-width: 1200px) {
-	#nav {
-		display: block !important;
-	}
-	header a {
-		margin: auto;
-		padding-bottom: 15px;
-	}
-	#logo {
-	    animation: none !important;
-	}
+
+@media (max-width: 600px) {
+  /* line 124, ../../../Documents/my-progress.ru/sass/main.scss */
+  .nav-link {
+    width: 50vw !important;
+  }
+  /* line 127, ../../../Documents/my-progress.ru/sass/main.scss */
+  #vertical-logo {
+    display: none;
+  }
+  /* line 130, ../../../Documents/my-progress.ru/sass/main.scss */
+  #break-logo {
+    display: inline;
+  }
+  /* line 133, ../../../Documents/my-progress.ru/sass/main.scss */
+  .main-title {
+    padding-bottom: 20px;
+    font-size: 28px;
+  }
 }
+
 @media (max-width: 350px) {
-	.nav-link {
-		width: 80vw !important;
-	}
-	#vertical-logo {
-		display: none;
-	}
-	#break-logo {
-		display: inline;
-	}
-	.main-title {
-		padding-bottom: 20px;
-		font-size: 28px;
-	}
+  /* line 139, ../../../Documents/my-progress.ru/sass/main.scss */
+  .nav-link {
+    width: 80vw !important;
+  }
 }
-@media (min-width: 350px) and (max-width: 600px) {
-	.nav-link {
-		width: 50vw !important;
-	}
-	#vertical-logo {
-		display: none;
-	}
-	#break-logo {
-		display: inline;
-	}
-	.main-title {
-		padding-bottom: 20px;
-		font-size: 28px;
-	}
-}
+
+/*# sourceMappingURL=main.css.map */

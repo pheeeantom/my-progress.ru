@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "logreg.css",
+	"sources": [
+		"../../sass/logreg.scss"
+	],
+	"sourcesContent": [
+		".btn[type=submit] {\n    background-color: #52cc00;\n    color: white;\n}\n.btn[type=submit]:hover {\n    background-color: #62dc00;\n}\nlabel.checked {\n    border: 3px solid #52cc00;\n    border-radius: 7px;\n}\n#pass-log-open, #pass-log-close, #pass-reg-open, #pass-reg-close, #pass-reg-sec-open, #pass-reg-sec-close {\n    margin-left: 2%;\n    width: 1.7em;\n}\n#pass-log-open:hover, #pass-log-close:hover, #pass-reg-open:hover, #pass-reg-close:hover, #pass-reg-sec-open:hover, #pass-reg-sec-close:hover {\n    cursor: pointer;\n}\ninput:focus {\n    box-shadow: 0 0 4px 2px rgba(82, 204, 0, 0.6) !important;\n}\ninput[readonly] {\n\tbackground-color: white !important;\n}"
+	],
+	"names": [],
+	"mappings": ";AAAA,AAAA,IAAI,CAAA,AAAA,IAAC,CAAD,MAAC,AAAA,EAAa;EACd,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,KAAK;CACf;;;AACD,AAAA,IAAI,CAAA,AAAA,IAAC,CAAD,MAAC,AAAA,CAAY,MAAM,CAAC;EACpB,gBAAgB,EAAE,OAAO;CAC5B;;;AACD,AAAA,KAAK,AAAA,QAAQ,CAAC;EACV,MAAM,EAAE,iBAAiB;EACzB,aAAa,EAAE,GAAG;CACrB;;;AACD,AAAA,cAAc,EAAE,eAAe,EAAE,cAAc,EAAE,eAAe,EAAE,kBAAkB,EAAE,mBAAmB,CAAC;EACtG,WAAW,EAAE,EAAE;EACf,KAAK,EAAE,KAAK;CACf;;;AACD,AAAA,cAAc,AAAA,MAAM,EAAE,eAAe,AAAA,MAAM,EAAE,cAAc,AAAA,MAAM,EAAE,eAAe,AAAA,MAAM,EAAE,kBAAkB,AAAA,MAAM,EAAE,mBAAmB,AAAA,MAAM,CAAC;EAC1I,MAAM,EAAE,OAAO;CAClB;;;AACD,AAAA,KAAK,AAAA,MAAM,CAAC;EACR,UAAU,EAAE,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,GAAG,CAAC,qBAAqB,CAAC,UAAU;CAC3D;;;AACD,AAAA,KAAK,CAAA,AAAA,QAAC,AAAA,EAAU;EACf,gBAAgB,EAAE,gBAAgB;CAClC"
+}

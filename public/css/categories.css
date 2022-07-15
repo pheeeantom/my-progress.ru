@@ -1,86 +1,112 @@
+/* line 4, ../../../Documents/my-progress.ru/sass/categories.scss */
 #categories {
-	background-color: #fafafa !important;
+  background-color: #fafafa !important;
 }
+
+/* line 8, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-toggle:focus {
-	box-shadow: none !important;
-	font-size: 16px;
+  box-shadow: none !important;
+  font-size: 16px;
 }
+
+/* line 13, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-item.active {
-	background-color: MediumSeaGreen;
+  background-color: MediumSeaGreen;
 }
+
+/* line 15, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-item.active:hover {
-	background-color: #4cc381;
+  background-color: #4cc381;
 }
+
+/* line 20, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-item:active {
-	background: none;
-	color: black;
+  background: none;
+  color: black;
 }
+
+/* line 24, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-item:last-child {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
+
+/* line 28, ../../../Documents/my-progress.ru/sass/categories.scss */
 #without {
-	padding: 7px 13px;
-	font-size: 16px;
+  padding: 7px 13px;
+  font-size: 16px;
 }
+
+/* line 32, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-set {
-	border: none;
+  border: none;
 }
+
+/* line 35, ../../../Documents/my-progress.ru/sass/categories.scss */
 .dropdown-set.active {
-	border: 1px solid grey;
-	border-radius: 3px;
+  border: 1px solid grey;
+  border-radius: 3px;
 }
-@media (max-width: 1200px) {
-	.categories {
-		margin: auto !important;
-		width: 70vw !important;
-	}
-	.dropdown-item {
-		margin: auto !important;
-		width: 55vw !important;
-	}
-	#without {
-		margin: 0 !important;
-	}
+
+@media (min-width: 600px) and (max-width: 1200px) {
+  /* line 41, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .categories {
+    margin: auto !important;
+    width: 70vw !important;
+  }
+  /* line 45, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .dropdown-item {
+    margin: auto !important;
+    width: 55vw !important;
+  }
 }
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  /* line 51, ../../../Documents/my-progress.ru/sass/categories.scss */
+  #without {
+    margin: 0 !important;
+  }
+}
+
 @media (max-width: 768px) {
-	.categories {
-		font-size: 1.1em;
-		text-align: center;
-		margin: auto !important;
-		width: 70vw !important;
-	}
-	.dropdown-item {
-		margin-bottom: 10px;
-		margin: auto !important;
-		width: 55vw !important;
-	}
-	#without {
-		margin: auto !important;
-	}
+  /* line 56, ../../../Documents/my-progress.ru/sass/categories.scss */
+  #without {
+    margin: auto !important;
+  }
+  /* line 59, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .categories {
+    font-size: 1.1em;
+    text-align: center;
+  }
+  /* line 63, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .dropdown-item {
+    margin-bottom: 10px;
+  }
 }
-@media (max-width: 350px) {
-	.dropdown-item {
-		margin: auto;
-		width: 65vw !important;
-	}
-	.categories {
-		margin: auto;
-		width: 100vw !important;
-	}
-	#without {
-		margin: auto !important;
-	}
-}
+
 @media (min-width: 350px) and (max-width: 600px) {
-	.dropdown-item {
-		margin: auto;
-		width: 50vw !important;
-	}
-	.categories {
-		margin: auto;
-		width: 75vw !important;
-	}
-	#without {
-		margin: auto !important;
-	}
+  /* line 68, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .dropdown-item {
+    margin: auto;
+    width: 50vw !important;
+  }
+  /* line 72, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .categories {
+    margin: auto;
+    width: 75vw !important;
+  }
 }
+
+@media (max-width: 350px) {
+  /* line 78, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .dropdown-item {
+    margin: auto;
+    width: 65vw !important;
+  }
+  /* line 82, ../../../Documents/my-progress.ru/sass/categories.scss */
+  .categories {
+    margin: auto;
+    width: 100vw !important;
+  }
+}
+
+/*# sourceMappingURL=categories.css.map */
