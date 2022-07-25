@@ -1,23 +1,27 @@
+@import "lib/_colors";
+@import "lib/_fonts";
+
 .btn[type=submit] {
-    background-color: #52cc00;
+    background-color: $main-inactive;
     color: white;
+    width: 100%;
 }
 .btn[type=submit]:hover {
-    background-color: #62dc00;
+    background-color: $main-active;
 }
 label.checked {
-    border: 3px solid #52cc00;
+    border: 3px solid $main-active;
     border-radius: 7px;
 }
-#pass-log-open, #pass-log-close, #pass-reg-open, #pass-reg-close, #pass-reg-sec-open, #pass-reg-sec-close {
+.open, .close {
     margin-left: 2%;
     width: 1.7em;
 }
-#pass-log-open:hover, #pass-log-close:hover, #pass-reg-open:hover, #pass-reg-close:hover, #pass-reg-sec-open:hover, #pass-reg-sec-close:hover {
+.open:hover, .close:hover {
     cursor: pointer;
 }
-input:focus {
-    box-shadow: 0 0 4px 2px rgba(82, 204, 0, 0.6) !important;
+input:focus, .btn[type=submit]:focus {
+    box-shadow: 0 0 4px 2px $input-shadow !important; //rgba(82, 204, 0, 0.6)
 }
 input[readonly] {
 	background-color: white !important;

@@ -19,10 +19,7 @@ var NavBar = function (_React$Component) {
     _initialiseProps.call(_this);
 
     var active = [true];
-    //active.fill
-    for (var i = 1; i < links.length; i++) {
-      active.push(false);
-    }
+    active.fill(false, 1, links.length);
     _this.state = { isActive: active };
     _this.output = _this.output.bind(_this);
     return _this;
@@ -52,10 +49,7 @@ var _initialiseProps = function _initialiseProps() {
 
   this.output = function (num) {
     var active = [];
-    //active.fill
-    for (var i = 0; i < links.length; i++) {
-      active.push(false);
-    }
+    active.fill(false, 0, links.length);
     active[num] = true;
     _this4.setState({ isActive: active });
   };

@@ -1,0 +1,9 @@
+drop table achievements;
+drop table achievements_types;
+drop table articles_types;
+drop table categories_types;
+drop table complaints_types;
+drop table notification_types;
+drop table notifications;
+drop table subscriptions;
+drop table users;

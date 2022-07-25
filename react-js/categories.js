@@ -21,10 +21,7 @@ class CategoriesBar extends React.Component {
 	constructor(props) {
 		super(props);
 		var active = [];
-		//active.fill
-	    for (var i = 0; i < Object.keys(categories).length; i++) {
-	      active.push(false);
-	    }
+		active.fill(false, 0, Object.keys(categories).length);
 	    this.state = {isActive: active, isReset: true};
 		this.output = this.output.bind(this);
 		this.reset = this.reset.bind(this);
@@ -32,10 +29,7 @@ class CategoriesBar extends React.Component {
 
 	output = num => {
 	    var active = [];
-	    //active.fill
-	    for (var i = 0; i < Object.keys(categories).length; i++) {
-	      active.push(false);
-	    }
+	    active.fill(false, 0, Object.keys(categories).length);
 	    active[num] = !this.state.isActive[num];
 	    if (active[num] == false) {
 	    	var reset = true;
@@ -45,10 +39,7 @@ class CategoriesBar extends React.Component {
 
 	reset() {
 		var active = [];
-		//active.fill
-	    for (var i = 0; i < Object.keys(categories).length; i++) {
-	      active.push(false);
-	    }
+		active.fill(false, 0, Object.keys(categories).length);
 	    this.setState({isActive : active, isReset: true});
 	}
 
@@ -74,10 +65,7 @@ class Category extends React.Component {
 	constructor(props) {
 		super(props);
 		var active = [];
-		//active.fill
-	    for (var i = 0; i < categories[this.props.name].length; i++) {
-	      active.push(false);
-	    }
+		active.fill(false, 0, categories[this.props.name].length);
 	    active[0] = true;
 	    this.state = {isActive: active};
 		this.handleClick = this.handleClick.bind(this);
@@ -99,10 +87,7 @@ class Category extends React.Component {
 
   	output = num => {
 	    var active = [];
-	    //active.fill
-	    for (var i = 0; i < categories[this.props.name].length; i++) {
-	      active.push(false);
-	    }
+	    active.fill(false, 0, categories[this.props.name].length);
 	    active[num] = true;
 	    this.setState({ isActive : active});
 	}

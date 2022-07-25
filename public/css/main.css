@@ -52,7 +52,7 @@ body {
   text-align: center;
 }
 
-/* line 54, ../../../Documents/my-progress.ru/sass/main.scss */
+/* line 55, ../../../Documents/my-progress.ru/sass/main.scss */
 #logo {
   background-image: repeating-linear-gradient(90deg, MediumSeaGreen 20%, #94dbb4 40%);
   background-size: 200% auto;
@@ -74,63 +74,63 @@ body {
   }
 }
 
-/* line 74, ../../../Documents/my-progress.ru/sass/main.scss */
+/* line 75, ../../../Documents/my-progress.ru/sass/main.scss */
 #nav {
   text-align: right;
 }
 
-/* line 77, ../../../Documents/my-progress.ru/sass/main.scss */
+/* line 78, ../../../Documents/my-progress.ru/sass/main.scss */
 #logreg {
   background-color: #1c8341;
   color: white !important;
 }
 
-/* line 80, ../../../Documents/my-progress.ru/sass/main.scss */
+/* line 81, ../../../Documents/my-progress.ru/sass/main.scss */
 #logreg:hover {
   background-color: #229d4e;
 }
 
-/* line 84, ../../../Documents/my-progress.ru/sass/main.scss */
+/* line 85, ../../../Documents/my-progress.ru/sass/main.scss */
 #break-logo {
   display: none;
 }
 
-/* line 87, ../../../Documents/my-progress.ru/sass/main.scss */
+/* line 88, ../../../Documents/my-progress.ru/sass/main.scss */
 #vertical-logo {
   display: inline;
 }
 
 @media (max-width: 1200px) {
-  /* line 91, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 92, ../../../Documents/my-progress.ru/sass/main.scss */
   #nav {
     display: block !important;
   }
-  /* line 95, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 96, ../../../Documents/my-progress.ru/sass/main.scss */
   header a {
     margin: auto;
     padding-bottom: 15px;
   }
-  /* line 100, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 101, ../../../Documents/my-progress.ru/sass/main.scss */
   #logo {
     animation: none !important;
   }
 }
 
 @media (max-width: 768px) {
-  /* line 105, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 106, ../../../Documents/my-progress.ru/sass/main.scss */
   #nav {
     text-align: center;
   }
-  /* line 108, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 109, ../../../Documents/my-progress.ru/sass/main.scss */
   .nav-item {
     margin-bottom: 10px;
   }
-  /* line 111, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 112, ../../../Documents/my-progress.ru/sass/main.scss */
   .nav-link {
     font-size: 1.1em;
     margin: auto;
   }
-  /* line 115, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 116, ../../../Documents/my-progress.ru/sass/main.scss */
   .main-title {
     font-size: 26px;
   }
@@ -141,19 +141,19 @@ body {
 }
 
 @media (max-width: 600px) {
-  /* line 124, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 125, ../../../Documents/my-progress.ru/sass/main.scss */
   .nav-link {
     width: 50vw !important;
   }
-  /* line 127, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 128, ../../../Documents/my-progress.ru/sass/main.scss */
   #vertical-logo {
     display: none;
   }
-  /* line 130, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 131, ../../../Documents/my-progress.ru/sass/main.scss */
   #break-logo {
     display: inline;
   }
-  /* line 133, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 134, ../../../Documents/my-progress.ru/sass/main.scss */
   .main-title {
     padding-bottom: 20px;
     font-size: 28px;
@@ -161,7 +161,7 @@ body {
 }
 
 @media (max-width: 350px) {
-  /* line 139, ../../../Documents/my-progress.ru/sass/main.scss */
+  /* line 140, ../../../Documents/my-progress.ru/sass/main.scss */
   .nav-link {
     width: 80vw !important;
   }

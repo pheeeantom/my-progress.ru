@@ -32,10 +32,7 @@ var CategoriesBar = function (_React$Component) {
 		_initialiseProps.call(_this);
 
 		var active = [];
-		//active.fill
-		for (var i = 0; i < Object.keys(categories).length; i++) {
-			active.push(false);
-		}
+		active.fill(false, 0, Object.keys(categories).length);
 		_this.state = { isActive: active, isReset: true };
 		_this.output = _this.output.bind(_this);
 		_this.reset = _this.reset.bind(_this);
@@ -46,10 +43,7 @@ var CategoriesBar = function (_React$Component) {
 		key: "reset",
 		value: function reset() {
 			var active = [];
-			//active.fill
-			for (var i = 0; i < Object.keys(categories).length; i++) {
-				active.push(false);
-			}
+			active.fill(false, 0, Object.keys(categories).length);
 			this.setState({ isActive: active, isReset: true });
 		}
 	}, {
@@ -84,10 +78,7 @@ var _initialiseProps = function _initialiseProps() {
 
 	this.output = function (num) {
 		var active = [];
-		//active.fill
-		for (var i = 0; i < Object.keys(categories).length; i++) {
-			active.push(false);
-		}
+		active.fill(false, 0, Object.keys(categories).length);
 		active[num] = !_this4.state.isActive[num];
 		if (active[num] == false) {
 			var reset = true;
@@ -107,10 +98,7 @@ var Category = function (_React$Component2) {
 		_initialiseProps2.call(_this2);
 
 		var active = [];
-		//active.fill
-		for (var i = 0; i < categories[_this2.props.name].length; i++) {
-			active.push(false);
-		}
+		active.fill(false, 0, categories[_this2.props.name].length);
 		active[0] = true;
 		_this2.state = { isActive: active };
 		_this2.handleClick = _this2.handleClick.bind(_this2);
@@ -174,10 +162,7 @@ var _initialiseProps2 = function _initialiseProps2() {
 
 	this.output = function (num) {
 		var active = [];
-		//active.fill
-		for (var i = 0; i < categories[_this5.props.name].length; i++) {
-			active.push(false);
-		}
+		active.fill(false, 0, categories[_this5.props.name].length);
 		active[num] = true;
 		_this5.setState({ isActive: active });
 	};

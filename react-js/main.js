@@ -8,20 +8,14 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     var active = [true];
-    //active.fill
-    for (var i = 1; i < links.length; i++) {
-      active.push(false);
-    }
+    active.fill(false, 1, links.length);
     this.state = {isActive: active};
     this.output = this.output.bind(this);
   }
 
   output = num => {
     var active = [];
-    //active.fill
-    for (var i = 0; i < links.length; i++) {
-      active.push(false);
-    }
+    active.fill(false, 0, links.length);
     active[num] = true;
     this.setState({ isActive : active});
   }
