@@ -197,3 +197,5 @@ ALTER TABLE users MODIFY COLUMN `created_at` datetime DEFAULT NOW() NOT NULL;
 ALTER TABLE users
   MODIFY COLUMN `nickname` varchar(63) UNIQUE NOT NULL,
   MODIFY COLUMN `email` varchar(255) UNIQUE NOT NULL;
+
+create table captchas(`id` int UNSIGNED AUTO_INCREMENT NOT NULL, `uuid` varchar(36) NOT NULL, `captcha` varchar(200) NOT NULL, PRIMARY KEY (`id`));

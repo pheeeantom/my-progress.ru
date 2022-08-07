@@ -16,43 +16,90 @@ var FormBar = function (_React$Component) {
 
 		_initialiseProps.call(_this);
 
-		var active = [true, false];
-		_this.state = { isActive: active };
+		var queryParams = new URLSearchParams(window.location.search);
+		var num = queryParams.get("num");
+		if (num == 0 || num == undefined) {
+			active = [true, false];
+		} else if (num == 1) {
+			active = [false, true];
+		}
+		_this.state = { isActive: active, error: null, isLoaded: false, image: null };
 		_this.check = _this.check.bind(_this);
 		return _this;
 	}
 
 	_createClass(FormBar, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			fetch("/getCaptcha").then(function (res) {
+				return res.json();
+			}).then(function (result) {
+				_this2.setState({
+					isLoaded: true,
+					image: result.image
+				});
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			function (error) {
+				_this2.setState({
+					isLoaded: true,
+					error: error
+				});
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var classLink = "btn shadow-none";
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(
+			var error = this.state.error;
+			var isLoaded = this.state.isLoaded;
+			var image = this.state.image;
+			if (error) {
+				return React.createElement(
 					"div",
-					{ className: "text-center" },
-					React.createElement("input", { type: "checkbox", className: "btn-check", id: "btn-check-login", onClick: this.check.bind(this, 0) }),
+					null,
+					"Error: ",
+					error.message
+				);
+			} else if (!isLoaded) {
+				return React.createElement(
+					"div",
+					null,
+					"Loading..."
+				);
+			} else {
+				return React.createElement(
+					"div",
+					null,
 					React.createElement(
-						"label",
-						{ className: this.state.isActive[0] ? classLink + " checked" : classLink, htmlFor: "btn-check-login" },
-						"\u0412\u043E\u0439\u0442\u0438"
+						"div",
+						{ className: "text-center" },
+						React.createElement("input", { type: "checkbox", className: "btn-check", id: "btn-check-login", onClick: this.check.bind(this, 0) }),
+						React.createElement(
+							"label",
+							{ className: this.state.isActive[0] ? classLink + " checked" : classLink, htmlFor: "btn-check-login" },
+							"\u0412\u043E\u0439\u0442\u0438"
+						),
+						React.createElement(
+							"pre",
+							{ className: "d-inline" },
+							" | "
+						),
+						React.createElement("input", { type: "checkbox", className: "btn-check", id: "btn-check-registration", onClick: this.check.bind(this, 1) }),
+						React.createElement(
+							"label",
+							{ className: this.state.isActive[1] ? classLink + " checked" : classLink, htmlFor: "btn-check-registration" },
+							"\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F"
+						)
 					),
-					React.createElement(
-						"pre",
-						{ className: "d-inline" },
-						" | "
-					),
-					React.createElement("input", { type: "checkbox", className: "btn-check", id: "btn-check-registration", onClick: this.check.bind(this, 1) }),
-					React.createElement(
-						"label",
-						{ className: this.state.isActive[1] ? classLink + " checked" : classLink, htmlFor: "btn-check-registration" },
-						"\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F"
-					)
-				),
-				React.createElement(Login, { isActive: this.state.isActive[0] }),
-				React.createElement(Registration, { isActive: this.state.isActive[1] })
-			);
+					React.createElement(Login, { isActive: this.state.isActive[0], base64Captcha: image }),
+					React.createElement(Registration, { isActive: this.state.isActive[1], base64Captcha: image })
+				);
+			}
 		}
 	}]);
 
@@ -60,7 +107,7 @@ var FormBar = function (_React$Component) {
 }(React.Component);
 
 var _initialiseProps = function _initialiseProps() {
-	var _this12 = this;
+	var _this15 = this;
 
 	this.check = function (num) {
 		if (num == 0) {
@@ -68,7 +115,7 @@ var _initialiseProps = function _initialiseProps() {
 		} else if (num == 1) {
 			active = [false, true];
 		}
-		_this12.setState({ isActive: active });
+		_this15.setState({ isActive: active });
 	};
 };
 
@@ -78,14 +125,15 @@ var Login = function (_React$Component2) {
 	function Login(props) {
 		_classCallCheck(this, Login);
 
-		var _this2 = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+		var _this3 = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
 
-		_this2.state = { first: true, disabled: true };
-		_this2.showTips = _this2.showTips.bind(_this2);
-		_this2.manipulteSubmit = _this2.manipulteSubmit.bind(_this2);
-		_this2.email = React.createRef();
-		_this2.password = React.createRef();
-		return _this2;
+		_this3.state = { first: true, disabled: true };
+		_this3.showTips = _this3.showTips.bind(_this3);
+		_this3.manipulteSubmit = _this3.manipulteSubmit.bind(_this3);
+		_this3.email = React.createRef();
+		_this3.password = React.createRef();
+		_this3.captcha = React.createRef();
+		return _this3;
 	}
 
 	_createClass(Login, [{
@@ -95,12 +143,13 @@ var Login = function (_React$Component2) {
 				this.setState({ first: false });
 				this.email.current.showTip();
 				this.password.current.showTip();
+				this.captcha.current.showTip();
 			}
 		}
 	}, {
 		key: "manipulteSubmit",
 		value: function manipulteSubmit() {
-			if (this.email.current.state.isPassed && this.password.current.state.isPassed) {
+			if (this.email.current.state.isPassed && this.password.current.state.isPassed && this.captcha.current.state.isPassed) {
 				this.setState({ disabled: false });
 			} else {
 				this.setState({ disabled: true });
@@ -115,11 +164,41 @@ var Login = function (_React$Component2) {
 			} else {
 				visible = null;
 			}
+			var queryParams = new URLSearchParams(window.location.search);
+			var isInvalid = queryParams.get("invalid");
+			var isCaptchaInvalid = queryParams.get("captcha");
+			var classSmall = "mes text-center pt-3 pb-3 mt-3 mb-4";
+			if (!isInvalid) {
+				classSmall += " d-none";
+			}
+			var classSmallCaptcha = "mes text-center pt-3 pb-3 mt-3 mb-4";
+			if (!isCaptchaInvalid) {
+				classSmallCaptcha += " d-none";
+			}
 			return React.createElement(
 				"form",
 				{ className: visible + " log pb-4", action: "login", method: "post", autoComplete: "off" },
+				React.createElement(
+					"div",
+					{ className: classSmall },
+					React.createElement(
+						"small",
+						{ className: "form-text text-danger" },
+						"\u041D\u0435\u0432\u0435\u0440\u043D\u043E\u0435 \u0438\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F \u043B\u0438\u0431\u043E \u043F\u0430\u0440\u043E\u043B\u044C"
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: classSmallCaptcha },
+					React.createElement(
+						"small",
+						{ className: "form-text text-danger" },
+						"\u041D\u0435\u0432\u0435\u0440\u043D\u0430\u044F \u043A\u0430\u043F\u0447\u0430"
+					)
+				),
 				React.createElement(Email, { ref: this.email, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, emailId: "email-log" }),
 				React.createElement(Password, { ref: this.password, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, passId: "pass-log" }),
+				React.createElement(Captcha, { ref: this.captcha, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, base64Captcha: this.props.base64Captcha }),
 				React.createElement(
 					"div",
 					{ className: "text-center" },
@@ -142,17 +221,18 @@ var Registration = function (_React$Component3) {
 	function Registration(props) {
 		_classCallCheck(this, Registration);
 
-		var _this3 = _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
+		var _this4 = _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
 
-		_this3.state = { first: true, disabled: true };
-		_this3.showTips = _this3.showTips.bind(_this3);
-		_this3.manipulteSubmit = _this3.manipulteSubmit.bind(_this3);
-		_this3.checkPassIdentity = _this3.checkPassIdentity.bind(_this3);
-		_this3.nickname = React.createRef();
-		_this3.email = React.createRef();
-		_this3.password = React.createRef();
-		_this3.password2 = React.createRef();
-		return _this3;
+		_this4.state = { first: true, disabled: true };
+		_this4.showTips = _this4.showTips.bind(_this4);
+		_this4.manipulteSubmit = _this4.manipulteSubmit.bind(_this4);
+		_this4.checkPassIdentity = _this4.checkPassIdentity.bind(_this4);
+		_this4.nickname = React.createRef();
+		_this4.email = React.createRef();
+		_this4.password = React.createRef();
+		_this4.password2 = React.createRef();
+		_this4.captcha = React.createRef();
+		return _this4;
 	}
 
 	_createClass(Registration, [{
@@ -164,12 +244,13 @@ var Registration = function (_React$Component3) {
 				this.email.current.showTip();
 				this.password.current.showTip();
 				//this.password2.current.showTip();
+				this.captcha.current.showTip();
 			}
 		}
 	}, {
 		key: "manipulteSubmit",
 		value: function manipulteSubmit() {
-			if (this.nickname.current.state.isPassed && this.email.current.state.isPassed && this.password.current.state.isPassed && this.password2.current.state.isPassed) {
+			if (this.nickname.current.state.isPassed && this.email.current.state.isPassed && this.password.current.state.isPassed && this.password2.current.state.isPassed && this.captcha.current.state.isPassed) {
 				this.setState({ disabled: false });
 			} else {
 				this.setState({ disabled: true });
@@ -189,13 +270,60 @@ var Registration = function (_React$Component3) {
 			} else {
 				visible = null;
 			}
+			var queryParams = new URLSearchParams(window.location.search);
+			var isNicknameBusy = queryParams.get("nicknameBusy");
+			var isEmailBusy = queryParams.get("emailBusy");
+			var isCaptchaInvalid = queryParams.get("captcha");
+			var classEmail = classNickname = "form-text text-danger";
+			var classSmall = "mes text-center pt-3 pb-3 mt-3 mb-4";
+			var classSmallCaptcha = "mes text-center pt-3 pb-3 mt-3 mb-4";
+			if (!isNicknameBusy) {
+				classNickname += " d-none";
+			}
+			if (!isEmailBusy) {
+				classEmail += " d-none";
+			}
+			if (!isNicknameBusy && !isEmailBusy) {
+				classSmall += " d-none";
+			}
+			if (!isCaptchaInvalid) {
+				classSmallCaptcha += " d-none";
+			}
 			return React.createElement(
 				"form",
 				{ className: visible + " reg pb-4", action: "registrate", method: "post" },
+				React.createElement(
+					"div",
+					{ className: classSmall },
+					React.createElement(
+						"small",
+						{ className: classNickname },
+						"\u041D\u0438\u043A ",
+						isNicknameBusy,
+						" - \u0437\u0430\u043D\u044F\u0442"
+					),
+					React.createElement(
+						"small",
+						{ className: classEmail },
+						"\u0415\u043C\u0435\u0439\u043B ",
+						isEmailBusy,
+						" - \u0437\u0430\u043D\u044F\u0442"
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: classSmallCaptcha },
+					React.createElement(
+						"small",
+						{ className: "form-text text-danger" },
+						"\u041D\u0435\u0432\u0435\u0440\u043D\u0430\u044F \u043A\u0430\u043F\u0447\u0430"
+					)
+				),
 				React.createElement(Nickname, { ref: this.nickname, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit }),
 				React.createElement(Email, { ref: this.email, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, emailId: "email-reg" }),
 				React.createElement(Password, { ref: this.password, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, passId: "pass-first", checkPassIdentity: this.checkPassIdentity }),
 				React.createElement(Password2, { ref: this.password2, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, passId: "pass-second", passIdBind: "pass-first" }),
+				React.createElement(Captcha, { ref: this.captcha, showTips: this.showTips, manipulteSubmit: this.manipulteSubmit, base64Captcha: this.props.base64Captcha }),
 				React.createElement(
 					"div",
 					{ className: "text-center" },
@@ -218,13 +346,13 @@ var Email = function (_React$Component4) {
 	function Email(props) {
 		_classCallCheck(this, Email);
 
-		var _this4 = _possibleConstructorReturn(this, (Email.__proto__ || Object.getPrototypeOf(Email)).call(this, props));
+		var _this5 = _possibleConstructorReturn(this, (Email.__proto__ || Object.getPrototypeOf(Email)).call(this, props));
 
-		_this4.state = { isPassed: true };
-		_this4.handleInput = _this4.handleInput.bind(_this4);
-		_this4.handleFocus = _this4.handleFocus.bind(_this4);
-		_this4.showTip = _this4.showTip.bind(_this4);
-		return _this4;
+		_this5.state = { isPassed: true };
+		_this5.handleInput = _this5.handleInput.bind(_this5);
+		_this5.handleFocus = _this5.handleFocus.bind(_this5);
+		_this5.showTip = _this5.showTip.bind(_this5);
+		return _this5;
 	}
 
 	_createClass(Email, [{
@@ -235,16 +363,16 @@ var Email = function (_React$Component4) {
 	}, {
 		key: "handleInput",
 		value: function handleInput(event) {
-			var _this5 = this;
+			var _this6 = this;
 
 			this.props.showTips();
 			if (event.target.value.match(/^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/)) {
 				this.setState({ isPassed: true }, function () {
-					return _this5.props.manipulteSubmit();
+					return _this6.props.manipulteSubmit();
 				});
 			} else {
 				this.setState({ isPassed: false }, function () {
-					return _this5.props.manipulteSubmit();
+					return _this6.props.manipulteSubmit();
 				});
 			}
 		}
@@ -284,13 +412,13 @@ var Nickname = function (_React$Component5) {
 	function Nickname(props) {
 		_classCallCheck(this, Nickname);
 
-		var _this6 = _possibleConstructorReturn(this, (Nickname.__proto__ || Object.getPrototypeOf(Nickname)).call(this, props));
+		var _this7 = _possibleConstructorReturn(this, (Nickname.__proto__ || Object.getPrototypeOf(Nickname)).call(this, props));
 
-		_this6.state = { isPassed: true };
-		_this6.handleInput = _this6.handleInput.bind(_this6);
-		_this6.handleFocus = _this6.handleFocus.bind(_this6);
-		_this6.showTip = _this6.showTip.bind(_this6);
-		return _this6;
+		_this7.state = { isPassed: true };
+		_this7.handleInput = _this7.handleInput.bind(_this7);
+		_this7.handleFocus = _this7.handleFocus.bind(_this7);
+		_this7.showTip = _this7.showTip.bind(_this7);
+		return _this7;
 	}
 
 	_createClass(Nickname, [{
@@ -301,18 +429,18 @@ var Nickname = function (_React$Component5) {
 	}, {
 		key: "handleInput",
 		value: function handleInput(event) {
-			var _this7 = this;
+			var _this8 = this;
 
 			this.props.showTips();
 			if (event.target.value.match(/^.{2,}$/)) {
 				//setState - асинхронная функция поэтому чтобы использовать результат ее выполнения нужно
 				//запускать функцию после нее в аргументах
 				this.setState({ isPassed: true }, function () {
-					return _this7.props.manipulteSubmit();
+					return _this8.props.manipulteSubmit();
 				});
 			} else {
 				this.setState({ isPassed: false }, function () {
-					return _this7.props.manipulteSubmit();
+					return _this8.props.manipulteSubmit();
 				});
 			}
 		}
@@ -352,14 +480,14 @@ var Password = function (_React$Component6) {
 	function Password(props) {
 		_classCallCheck(this, Password);
 
-		var _this8 = _possibleConstructorReturn(this, (Password.__proto__ || Object.getPrototypeOf(Password)).call(this, props));
+		var _this9 = _possibleConstructorReturn(this, (Password.__proto__ || Object.getPrototypeOf(Password)).call(this, props));
 
-		_this8.state = { isPassed: true, passVisible: false };
-		_this8.handleInput = _this8.handleInput.bind(_this8);
-		_this8.handleFocus = _this8.handleFocus.bind(_this8);
-		_this8.handleClick = _this8.handleClick.bind(_this8);
-		_this8.showTip = _this8.showTip.bind(_this8);
-		return _this8;
+		_this9.state = { isPassed: true, passVisible: false };
+		_this9.handleInput = _this9.handleInput.bind(_this9);
+		_this9.handleFocus = _this9.handleFocus.bind(_this9);
+		_this9.handleClick = _this9.handleClick.bind(_this9);
+		_this9.showTip = _this9.showTip.bind(_this9);
+		return _this9;
 	}
 
 	_createClass(Password, [{
@@ -370,17 +498,17 @@ var Password = function (_React$Component6) {
 	}, {
 		key: "handleInput",
 		value: function handleInput(event) {
-			var _this9 = this;
+			var _this10 = this;
 
 			this.props.showTips();
 			if (this.props.passId.includes("first")) this.props.checkPassIdentity();
 			if (event.target.value.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$/)) {
 				this.setState({ isPassed: true }, function () {
-					return _this9.props.manipulteSubmit();
+					return _this10.props.manipulteSubmit();
 				});
 			} else {
 				this.setState({ isPassed: false }, function () {
-					return _this9.props.manipulteSubmit();
+					return _this10.props.manipulteSubmit();
 				});
 			}
 		}
@@ -443,25 +571,25 @@ var Password2 = function (_Password) {
 	function Password2(props) {
 		_classCallCheck(this, Password2);
 
-		var _this10 = _possibleConstructorReturn(this, (Password2.__proto__ || Object.getPrototypeOf(Password2)).call(this, props));
+		var _this11 = _possibleConstructorReturn(this, (Password2.__proto__ || Object.getPrototypeOf(Password2)).call(this, props));
 
-		_this10.checkPassIdentity = _this10.checkPassIdentity.bind(_this10);
-		return _this10;
+		_this11.checkPassIdentity = _this11.checkPassIdentity.bind(_this11);
+		return _this11;
 	}
 
 	_createClass(Password2, [{
 		key: "handleInput",
 		value: function handleInput(event) {
-			var _this11 = this;
+			var _this12 = this;
 
 			this.props.showTips();
 			if (event.target.value === document.getElementById(this.props.passIdBind).value) {
 				this.setState({ isPassed: true }, function () {
-					return _this11.props.manipulteSubmit();
+					return _this12.props.manipulteSubmit();
 				});
 			} else {
 				this.setState({ isPassed: false }, function () {
-					return _this11.props.manipulteSubmit();
+					return _this12.props.manipulteSubmit();
 				});
 			}
 		}
@@ -511,6 +639,68 @@ var Password2 = function (_Password) {
 
 	return Password2;
 }(Password);
+
+var Captcha = function (_React$Component7) {
+	_inherits(Captcha, _React$Component7);
+
+	function Captcha(props) {
+		_classCallCheck(this, Captcha);
+
+		var _this13 = _possibleConstructorReturn(this, (Captcha.__proto__ || Object.getPrototypeOf(Captcha)).call(this, props));
+
+		_this13.state = { isPassed: true };
+		_this13.handleInput = _this13.handleInput.bind(_this13);
+		_this13.handleFocus = _this13.handleFocus.bind(_this13);
+		_this13.showTip = _this13.showTip.bind(_this13);
+		return _this13;
+	}
+
+	_createClass(Captcha, [{
+		key: "showTip",
+		value: function showTip() {
+			this.setState({ isPassed: false });
+		}
+	}, {
+		key: "handleFocus",
+		value: function handleFocus(event) {
+			event.target.removeAttribute('readonly');
+		}
+	}, {
+		key: "handleInput",
+		value: function handleInput(event) {
+			var _this14 = this;
+
+			this.props.showTips();
+			if (event.target.value.match(/^[a-zA-Z0-9]{6}$/)) {
+				this.setState({ isPassed: true }, function () {
+					return _this14.props.manipulteSubmit();
+				});
+			} else {
+				this.setState({ isPassed: false }, function () {
+					return _this14.props.manipulteSubmit();
+				});
+			}
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var classLink = "form-text text-danger";
+			return React.createElement(
+				"div",
+				null,
+				React.createElement("img", { id: "captcha-img", src: this.props.base64Captcha }),
+				React.createElement("input", { onInput: this.handleInput, id: "captcha", className: "form-control", placeholder: "\u041A\u0430\u043F\u0447\u0430", name: "captcha", onFocus: this.handleFocus }),
+				React.createElement(
+					"small",
+					{ className: this.state.isPassed ? classLink + " d-none" : classLink },
+					"\u041A\u0430\u043F\u0447\u0430 \u0434\u043E\u043B\u0436\u043D\u0430 \u0441\u043E\u0441\u0442\u043E\u044F\u0442\u044C \u0438\u0437 6 \u0431\u0443\u043A\u0432 \u0438 \u0446\u0438\u0444\u0440"
+				)
+			);
+		}
+	}]);
+
+	return Captcha;
+}(React.Component);
 
 ReactDOM.render(React.createElement(FormBar, null), document.getElementById('logreg-form'));
 

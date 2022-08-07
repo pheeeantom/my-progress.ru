@@ -1,9 +1,37 @@
 class FormBar extends React.Component {
 	constructor(props) {
 		super(props);
-		let active = [true, false];
-		this.state = {isActive: active};
+		const queryParams = new URLSearchParams(window.location.search);
+		const num = queryParams.get("num");
+		if (num == 0 || num == undefined) {
+	    	active = [true, false];
+	    }
+	    else if (num == 1) {
+	    	active = [false, true];
+	    }
+		this.state = { isActive: active, error: null, isLoaded: false, image: null };
 		this.check = this.check.bind(this);
+	}
+	componentDidMount() {
+		fetch("/getCaptcha")
+			.then(res => res.json())
+			.then(
+				(result) => {
+					this.setState({
+						isLoaded: true,
+						image: result.image
+					});
+				},
+				// Note: it's important to handle errors here
+				// instead of a catch() block so that we don't swallow
+				// exceptions from actual bugs in components.
+				(error) => {
+					this.setState({
+						isLoaded: true,
+						error
+					});
+				}
+			);
 	}
 	check = num => {
 	    if (num == 0) {
@@ -16,19 +44,28 @@ class FormBar extends React.Component {
 	}
 	render() {
 		let classLink = "btn shadow-none";
-		return (
-			<div>
-				<div className="text-center">
-			        <input type="checkbox" className="btn-check" id="btn-check-login" onClick={this.check.bind(this, 0)}/>
-			        <label className={this.state.isActive[0] ? classLink + " checked" : classLink} htmlFor="btn-check-login">Войти</label>
-			        <pre className="d-inline"> | </pre>
-			        <input type="checkbox" className="btn-check" id="btn-check-registration" onClick={this.check.bind(this, 1)}/>
-			        <label className={this.state.isActive[1] ? classLink + " checked" : classLink} htmlFor="btn-check-registration">Зарегистрироваться</label>
-			    </div>
-			    <Login isActive={this.state.isActive[0]}/>
-			    <Registration isActive={this.state.isActive[1]}/>
-			</div>
-		);
+		const error = this.state.error;
+		const isLoaded = this.state.isLoaded;
+		const image = this.state.image;
+		if (error) {
+			return <div>Error: {error.message}</div>;
+		} else if (!isLoaded) {
+			return <div>Loading...</div>;
+		} else {
+			return (
+				<div>
+					<div className="text-center">
+				        <input type="checkbox" className="btn-check" id="btn-check-login" onClick={this.check.bind(this, 0)}/>
+				        <label className={this.state.isActive[0] ? classLink + " checked" : classLink} htmlFor="btn-check-login">Войти</label>
+				        <pre className="d-inline"> | </pre>
+				        <input type="checkbox" className="btn-check" id="btn-check-registration" onClick={this.check.bind(this, 1)}/>
+				        <label className={this.state.isActive[1] ? classLink + " checked" : classLink} htmlFor="btn-check-registration">Зарегистрироваться</label>
+				    </div>
+				    <Login isActive={this.state.isActive[0]} base64Captcha={image}/>
+				    <Registration isActive={this.state.isActive[1]} base64Captcha={image}/>
+				</div>
+			);
+		}
 	}
 }
 
@@ -40,16 +77,18 @@ class Login extends React.Component {
 		this.manipulteSubmit = this.manipulteSubmit.bind(this);
 		this.email = React.createRef();
 		this.password = React.createRef();
+		this.captcha = React.createRef();
 	}
 	showTips() {
 		if (this.state.first) {
 			this.setState({first: false});
 			this.email.current.showTip();
 			this.password.current.showTip();
+			this.captcha.current.showTip();
 		}
 	}
 	manipulteSubmit() {
-		if (this.email.current.state.isPassed && this.password.current.state.isPassed) {
+		if (this.email.current.state.isPassed && this.password.current.state.isPassed && this.captcha.current.state.isPassed) {
 			this.setState({disabled: false});
 		}
 		else {
@@ -64,10 +103,28 @@ class Login extends React.Component {
 		else {
 			visible = null;
 		}
+		const queryParams = new URLSearchParams(window.location.search);
+		const isInvalid = queryParams.get("invalid");
+		const isCaptchaInvalid = queryParams.get("captcha");
+		let classSmall = "mes text-center pt-3 pb-3 mt-3 mb-4";
+		if (!isInvalid) {
+			classSmall += " d-none";
+		}
+		let classSmallCaptcha = "mes text-center pt-3 pb-3 mt-3 mb-4";
+		if (!isCaptchaInvalid) {
+			classSmallCaptcha += " d-none";
+		}
 		return(
 			<form className={visible + " log pb-4"} action="login" method="post" autoComplete="off">
+				<div className={classSmall}>
+					<small className="form-text text-danger">Неверное имя пользователя либо пароль</small>
+				</div>
+				<div className={classSmallCaptcha}>
+					<small className="form-text text-danger">Неверная капча</small>
+				</div>
 				<Email ref={this.email} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} emailId="email-log" />
 				<Password ref={this.password} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} passId="pass-log" />
+				<Captcha ref={this.captcha} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} base64Captcha={this.props.base64Captcha}/>
 				<div className="text-center">
                 	<button type="submit" className="btn" disabled={this.state.disabled}>Войти</button>
                 </div>
@@ -87,6 +144,7 @@ class Registration extends React.Component {
 		this.email = React.createRef();
 		this.password = React.createRef();
 		this.password2 = React.createRef();
+		this.captcha = React.createRef();
 	}
 	showTips() {
 		if (this.state.first) {
@@ -95,11 +153,13 @@ class Registration extends React.Component {
 			this.email.current.showTip();
 			this.password.current.showTip();
 			//this.password2.current.showTip();
+			this.captcha.current.showTip();
 		}
 	}
 	manipulteSubmit() {
 		if (this.nickname.current.state.isPassed && this.email.current.state.isPassed
-			&& this.password.current.state.isPassed && this.password2.current.state.isPassed) {
+			&& this.password.current.state.isPassed && this.password2.current.state.isPassed
+			&& this.captcha.current.state.isPassed) {
 			this.setState({disabled: false});
 		}
 		else {
@@ -117,12 +177,39 @@ class Registration extends React.Component {
 		else {
 			visible = null;
 		}
+		const queryParams = new URLSearchParams(window.location.search);
+		const isNicknameBusy = queryParams.get("nicknameBusy");
+		const isEmailBusy = queryParams.get("emailBusy");
+		const isCaptchaInvalid = queryParams.get("captcha");
+		let classEmail = classNickname = "form-text text-danger";
+		let classSmall = "mes text-center pt-3 pb-3 mt-3 mb-4";
+		let classSmallCaptcha = "mes text-center pt-3 pb-3 mt-3 mb-4";
+		if (!isNicknameBusy) {
+			classNickname += " d-none";
+		}
+		if (!isEmailBusy) {
+			classEmail += " d-none";
+		}
+		if (!isNicknameBusy && !isEmailBusy) {
+			classSmall += " d-none";
+		}
+		if (!isCaptchaInvalid) {
+			classSmallCaptcha += " d-none";
+		}
 		return(
 			<form className={visible + " reg pb-4"} action="registrate" method="post">
+				<div className={classSmall}>
+					<small className={classNickname}>Ник {isNicknameBusy} - занят</small>
+					<small className={classEmail}>Емейл {isEmailBusy} - занят</small>
+				</div>
+				<div className={classSmallCaptcha}>
+					<small className="form-text text-danger">Неверная капча</small>
+				</div>
 				<Nickname ref={this.nickname} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} />
 				<Email ref={this.email} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} emailId="email-reg" />
 				<Password ref={this.password} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} passId="pass-first" checkPassIdentity={this.checkPassIdentity} />
 				<Password2 ref={this.password2} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} passId="pass-second" passIdBind="pass-first" />
+				<Captcha ref={this.captcha} showTips={this.showTips} manipulteSubmit={this.manipulteSubmit} base64Captcha={this.props.base64Captcha}/>
 				<div className="text-center">
                 	<button type="submit" className="btn" disabled={this.state.disabled}>Зарегистрироваться</button>
                 </div>
@@ -299,6 +386,41 @@ class Password2 extends Password {
 				    <input id={this.props.passId} onInput={this.handleInput} type="password" className="form-control password" placeholder="Пароль" aria-describedby="passwordError-log" name="password" onFocus={this.handleFocus} readOnly autoComplete="off"/><img onClick={this.handleClick} className={"open " + visible[0]} src="/img/eye.svg"/><img onClick={this.handleClick} src="/img/eye-close.svg" className={"close " + visible[1]}/>
 				</div>
 				<small className={this.state.isPassed ? classLink + " d-none" : classLink}>Пароли должны совпадать!</small>
+			</div>
+		);
+	}
+}
+
+class Captcha extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {isPassed: true};
+		this.handleInput = this.handleInput.bind(this);
+		this.handleFocus = this.handleFocus.bind(this);
+		this.showTip = this.showTip.bind(this);
+	}
+	showTip() {
+		this.setState({isPassed: false});
+	}
+	handleFocus(event) {
+		event.target.removeAttribute('readonly');
+	}
+	handleInput(event) {
+		this.props.showTips();
+		if (event.target.value.match(/^[a-zA-Z0-9]{6}$/)) {
+			this.setState({isPassed: true}, () => this.props.manipulteSubmit());
+		}
+		else {
+			this.setState({isPassed: false}, () => this.props.manipulteSubmit());
+		}
+	}
+	render() {
+		let classLink = "form-text text-danger";
+		return (
+			<div>
+        		<img id="captcha-img" src={this.props.base64Captcha}/>
+        		<input onInput={this.handleInput} id="captcha" className="form-control" placeholder="Капча" name="captcha" onFocus={this.handleFocus}/>
+				<small className={this.state.isPassed ? classLink + " d-none" : classLink}>Капча должна состоять из 6 букв и цифр</small>
 			</div>
 		);
 	}

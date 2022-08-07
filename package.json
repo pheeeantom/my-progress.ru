@@ -4,9 +4,20 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
     "express": "^4.17.0",
     "express-handlebars": "^6.0.3",
+    "express-mysql-session": "^2.1.8",
+    "express-session": "^1.17.3",
     "hbs": "^4.2.0",
-    "mysql2": "^2.3.3"
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mysql2": "^2.3.3",
+    "nodejs-captcha": "^0.0.6",
+    "nodemailer": "^6.7.7",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   }
 }
